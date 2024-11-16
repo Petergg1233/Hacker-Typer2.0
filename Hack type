@@ -1,0 +1,68 @@
+```html
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Typer</title>
+    <style>
+        body {
+            background-color: black;
+            color: green;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+            overflow: hidden;
+        }
+        #output {
+            white-space: pre;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        #cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: green;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="output"></div>
+    <div id="cursor"></div>
+    <script>
+        const output = document.getElementById('output');
+        const cursor = document.getElementById('cursor');
+        const text = "Hacking in progress...\n\n";
+        let index = 0;
+        
+        function type() {
+            if (index < text.length) {
+                output.textContent += text[index];
+                index++;
+                setTimeout(type, 100); // Időköz a karakterek között
+            } else {
+                cursor.style.display = 'none'; // Kurzor eltüntetése
+            }
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                index = 0; // Visszaállítjuk az indexet
+                output.textContent = ''; // Töröljük az output-ot
+                cursor.style.display = 'inline-block'; // Újra láthatóvá tesszük a kurzort
+                setTimeout(type, 100); // Kezdjük el újra a gépelést
+            }
+        });
+
+        type(); // Megkezdjük a gépelést
+    </script>
+</body>
+</html>
+```
